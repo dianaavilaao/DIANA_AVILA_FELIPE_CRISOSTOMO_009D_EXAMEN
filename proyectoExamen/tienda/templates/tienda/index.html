@@ -93,12 +93,22 @@
     </button>
 </div>
 
-<br>
-{% for producto in productos %}
-        
-    {{producto.nombre}} <br>
-
-{% endfor %}
+<div class="container mt-5">
+    <div class="row">
+        {% for producto in productos %}
+        <div class="col-md-4">
+            <div class="card mb-4 shadow-sm">
+                <img src="{{ producto.imagen.url }}" class="card-img-top" alt="{{ producto.nombre }}">
+                <div class="card-body">
+                    <h5 class="card-title">{{ producto.nombre }}</h5>
+                    <p class="card-text"><del>${{ producto.precio_normal }}</del></p>
+                    <p class="card-text">${{ producto.precio_con_descuento }}</p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
 
 
 <!--

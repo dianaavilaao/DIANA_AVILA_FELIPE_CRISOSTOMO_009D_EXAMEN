@@ -9,4 +9,4 @@ def index (request):
 
 def listar_productos(request):
     productos = Producto.objects.all()  # Obtén todos los productos desde la base de datos
-    return render(request, 'index.html', {'productos': productos})
+    return render(request, 'tienda/index.html', {'productos': productos})
