@@ -16,22 +16,22 @@
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
-        <a href="Index.html"><img src="{% static 'img/logo.png' %}" alt="" width="70px"></a>
+        <a href="/tienda/index"><img src="{% static 'img/logo.png' %}" alt="" width="70px"></a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="Index.html">Inicio</a>
+                    <a class="nav-link active" aria-current="page" href="/tienda/index">Inicio</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"> Catalogo
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="Plantas.html">Plantas</a></li>
-                        <li><a class="dropdown-item" href="Macetas.html">Macetas</a></li>
-                        <li><a class="dropdown-item" href="Articulos.html">Articulos</a></li>
+                        <li><a class="dropdown-item" href="{% url 'producto_list_tipo' tipo_producto='planta' %}">Plantas</a></li>
+                        <li><a class="dropdown-item" href="{% url 'producto_list_tipo' tipo_producto='maceta' %}">Macetas</a></li>
+                        <li><a class="dropdown-item" href="{% url 'producto_list_tipo' tipo_producto='articulo' %}">Articulos</a></li>
                         <li><hr class="dropdown-divider"></li>
                         <li><a class="dropdown-item" href="#">Ofertas</a></li>
                     </ul>
@@ -40,7 +40,7 @@
                     <a class="nav-link" href="registro.html" tabindex="-1" aria-disabled="true">Registrate</a><!--AQUI ESTA EL FORMULARIO-->
                 </li>
             </ul>
-            <img src="{% static 'img/carrito_robado.png' %}" alt="robado con exito">
+            <img src="{% static 'img/carrito robado.png' %}" alt="robado con exito">
             <div class="dropdown">
                 <button class="btn btn-success position-relative me-2" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
                     Carrito
@@ -107,131 +107,6 @@
             </div>
         </div>
         {% endfor %}
-    </div>
-</div>
-
-
-<!--
-<div class="container">
-    <div class="row" id="productContainer">
-        {% for producto in productos %}
-        <div class="col">
-            <div class="card card2 product-card" data-name="{{ producto.nombre }}" data-price="{{ producto.precio_con_descuento }}" data-img="{% static 'img/articulos/art1_pajaritoregador.webp' %}">
-                <img src="{{ producto.imagen.url }}" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">{{ producto.nombre }}</h5>
-                    <img src="{% static 'img/Screenshot_3.png' %}" alt="">
-                </div>
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item lead text-danger"><b>$</b><b class="precio">{{ producto.precio_con_descuento }}</b></li>
-                    <li class="list-group-item lead"><b>${{ producto.precio_normal }}</b></li>
-                    <li class="list-group-item text-muted"><del>${{ producto.precio_normal }}</del></li>
-                </ul>
-            </div>
-        </div>
-        {% endfor %}
-    </div>
-</div>
--->
-        <!--
-        <div class="col">
-            <div class="card card2 product-card" data-name="Maceta De Cara" data-price="75990" data-img="{% static 'img/macetas/maceta1.jpg' %}">
-                <img src="{% static 'img/macetas/maceta1.jpg' %}" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">Maceta De Cara</h5>
-                    <img src="{% static 'img/Screenshot_3.png' %}" alt="">
-                </div>
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item lead text-danger"><b>$</b><b class="precio">279990</b></li>
-                    <li class="list-group-item lead"><b>$289990</b></li>
-                    <li class="list-group-item text-muted"><del>$362990</del></li>
-                </ul>
-            </div>
-        </div>
-        <div class="col">
-            <div class="card card2 product-card" data-name="Dolar Amarillo" data-price="75990" data-img="{% static 'img/plantas/planta1_dolaramarillo.jpg' %}">
-                <img src="{% static 'img/plantas/planta1_dolaramarillo.jpg' %}" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">Dolar Amarillo</h5>
-                    <img src="{% static 'img/Screenshot_3.png' %}" alt="">
-                </div>
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item lead text-danger"><b>$</b><b class="precio">89990</b></li>
-                    <li class="list-group-item lead"><b>$96990</b></li>
-                    <li class="list-group-item text-muted"><del>$110990</del></li>
-                </ul>
-            </div>
-        </div>
-        <div class="col">
-            <div class="card card2 product-card" data-name="Suculentas" data-price="89990" data-img="{% static 'img/plantas/planta7_suculentas.webp' %}">
-                <img src="{% static 'img/plantas/planta7_suculentas.webp' %}" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">Suculentas</h5>
-                    <img src="{% static 'img/Screenshot_3.png' %}" alt="">
-                </div>
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item lead text-danger"><b>$</b><b class="precio">2000990</b></li>
-                    <li class="list-group-item lead"><b>$2000990</b></li>
-                    <li class="list-group-item text-muted"><del>$1000990</del></li>
-                </ul>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="card product-card" data-name='Libro "Cómo NO MATAR tus plantas"' data-price="89990" data-img="{% static 'img/articulos/art8_libro.jpg' %}">
-                <img src="{% static 'img/articulos/art8_libro.jpg' %}" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">Libro "Cómo NO MATAR tus plantas" </h5>
-                </div>
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item lead text-danger"><b>$</b><b class="precio">89990</b></li>
-                    <li class="list-group-item lead"><b>$96990</b></li>
-                    <li class="list-group-item text-muted"><del>$110990</del></li>
-                </ul>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="card product-card" data-name="Estante" data-price="89990" data-img="{% static 'img/articulos/art7_estante.webp' %}">
-                <img src="{% static 'img/articulos/art7_estante.webp' %}" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">Estante</h5>
-                    <br>
-                </div>
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item lead text-danger"><b>$</b><b class="precio">89990</b></li>
-                    <li class="list-group-item lead"><b>$96990</b></li>
-                    <li class="list-group-item text-muted"><del>$110990</del></li>
-                </ul>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="card product-card" data-name="Maceta En Una Taza" data-price="89990" data-img="{% static 'img/macetas/maceta7.webp' %}">
-                <img src="{% static 'img/macetas/maceta7.webp' %}" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">Maceta En Una Taza</h5>
-                    <br>
-                </div>
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item lead text-danger"><b>$</b><b class="precio">89990</b></li>
-                    <li class="list-group-item lead"><b>$96990</b></li>
-                    <li class="list-group-item text-muted"><del>$110990</del></li>
-                </ul>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="card product-card" data-name="Maceta Estrellada" data-price="89990" data-img="{% static 'img/macetas/maceta5.webp' %}">
-                <img src="{% static 'img/macetas/maceta5.webp' %}" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">Maceta Estrellada</h5>
-                    <br>
-                </div>
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item lead text-danger"><b>$</b><b class="precio">89990</b></li>
-                    <li class="list-group-item lead"><b>$96990</b></li>
-                    <li class="list-group-item text-muted"><del>$110990</del></li>
-                </ul>
-            </div>
-        </div>
-    -->
     </div>
 </div>
 

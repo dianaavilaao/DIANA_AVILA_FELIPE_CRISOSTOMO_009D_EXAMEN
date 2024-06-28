@@ -1,5 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404, redirect
 from .models import Producto
+from .forms import ProductoForm
+
 
 
 def index (request):
@@ -7,6 +9,10 @@ def index (request):
     return render(request, 'tienda/index.html', context)
 
 
-def listar_productos(request):
-    productos = Producto.objects.all()  # Obtén todos los productos desde la base de datos
+def producto_list(request):
+    productos = Producto.objects.all()
     return render(request, 'tienda/index.html', {'productos': productos})
+
+def producto_list_tipo(request, tipo_producto):
+    productos = Producto.objects.filter(tipo=tipo_producto)
+    return render(request, 'tienda/index.html', {'productos': productos, 'tipo_producto': tipo_producto})
