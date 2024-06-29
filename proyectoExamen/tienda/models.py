@@ -19,3 +19,11 @@ class Producto(models.Model):
 
     def __str__(self):
         return self.nombre
+    
+class Cliente(models.Model):
+    username = models.CharField(max_length=150, unique=True)
+    email = models.EmailField(unique=True)
+    password = models.CharField(max_length=128)  # Recuerda almacenar contraseñas hasheadas
+
+    def __str__(self):
+        return self.username

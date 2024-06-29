@@ -1,7 +1,16 @@
-from django import forms
-from .models import Producto
 
-class ProductoForm(forms.ModelForm):
+from django import forms
+from .models import Cliente
+
+class RegistroForm(forms.ModelForm):
     class Meta:
-        model = Producto
-        fields = ['nombre', 'precio_con_descuento', 'precio_normal', 'imagen']
+        model = Cliente
+        fields = ['username', 'email', 'password']
+        widgets = {
+            'password': forms.PasswordInput(),  # Para ocultar la entrada de la contraseña
+        }
+
+    def clean_password(self):
+        password = self.cleaned_data.get('password')
+        # Aquí puedes añadir validaciones adicionales para la contraseña
+        return password

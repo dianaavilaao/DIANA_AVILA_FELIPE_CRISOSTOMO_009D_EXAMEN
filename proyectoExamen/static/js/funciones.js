@@ -3,9 +3,9 @@ $(document).ready(function() {
 
     // Capturar productos
     $('.card').each(function() {
-        var priceText = $(this).find('.precio').text().replace('.', '').replace(',', ''); // Limpiar el texto del precio
+        var priceText = $(this).find('.card-text').eq(1).text().replace('$', '').replace(',', ''); // Obtener el precio con descuento
         var price = parseFloat(priceText);
-        var card = $(this).closest('.col-md-3');
+        var card = $(this).closest('.col-md-4');
         products.push({ price: price, card: card });
     });
 
@@ -99,16 +99,17 @@ $(document).ready(function() {
         return newItem;
     }
 
-
-    function updateCartTotal() {
-        const cartItems = document.querySelectorAll('#cartItems .row');
-        let total = 0;
-        cartItems.forEach(item => {
-            const price = item.querySelector('.lead b').innerText.replace('$', '');
-            total += parseFloat(price);
-        });
-        document.querySelector('.total-carrito').innerText = `$${total}`;
-    }
+   function updateCartTotal() {
+    const cartItems = document.querySelectorAll('#cartItems .row');
+    let total = 0;
+    cartItems.forEach(item => {
+        const price = item.querySelector('.lead b').innerText.replace('$', '');
+        total += parseFloat(price);
+    });
+    document.querySelectorAll('.total-carrito').forEach(totalElement => {
+        totalElement.innerText = `$${total.toFixed(2)}`;
+    });
+}
 
     function updateItemCount(change) {
         let itemCount = parseInt(itemCountElement.innerText);
@@ -149,15 +150,13 @@ $(document).ready(function() {
         updateCartTotal();
     }
 
-        //formulario
-
-        
+    // Formulario
     $("#usercheck").hide(); 
     let usernameError = true; 
     $("#usernames").keyup(function () { 
         validateUsername(); 
     }); 
-  
+
     function validateUsername() { 
         let usernameValue = $("#usernames").val(); 
         if (usernameValue.length == "") { 
@@ -173,7 +172,7 @@ $(document).ready(function() {
             $("#usercheck").hide(); 
         } 
     } 
-  
+
     const email = document.getElementById("email"); 
     email.addEventListener("blur", () => { 
         let regex =  
@@ -187,7 +186,7 @@ $(document).ready(function() {
             emailError = false; 
         } 
     }); 
-  
+
     $("#passcheck").hide(); 
     let passwordError = true; 
     $("#password").keyup(function () { 
@@ -212,7 +211,7 @@ $(document).ready(function() {
             $("#passcheck").hide(); 
         } 
     } 
-  
+
     $("#conpasscheck").hide(); 
     let confirmPasswordError = true; 
     $("#conpassword").keyup(function () { 
@@ -231,7 +230,7 @@ $(document).ready(function() {
             $("#conpasscheck").hide(); 
         } 
     } 
-  
+
     $("#submitbtn").click(function () { 
         validateUsername(); 
         validatePassword(); 
@@ -248,12 +247,4 @@ $(document).ready(function() {
             return false; 
         } 
     }); 
-    
-    document.addEventListener('DOMContentLoaded', function() {
-        console.log('JavaScript funcionando!');
-        alert('JavaScript funcionando!');
-    });
-    
-
 });
-

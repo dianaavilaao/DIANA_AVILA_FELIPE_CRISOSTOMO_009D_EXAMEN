@@ -37,7 +37,7 @@
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="registro.html" tabindex="-1" aria-disabled="true">Registrate</a><!--AQUI ESTA EL FORMULARIO-->
+                    <a class="nav-link" href="/tienda/registro" tabindex="-1" aria-disabled="true">Registrate</a><!--AQUI ESTA EL FORMULARIO-->
                 </li>
             </ul>
             <img src="{% static 'img/carrito robado.png' %}" alt="robado con exito">
@@ -57,7 +57,7 @@
                     </li>
                     <li><hr class="dropdown-divider"></li>
                     <li>
-                        <a class="dropdown-item" href="carrito.html">
+                        <a class="dropdown-item" href="/tienda/carrito">
                             <p class="lead ir-a-comprar">Ir a comprar</p>
                             <p class="lead"><b>Total</b><b class="total-carrito">...</b></p>
                         </a>
@@ -94,15 +94,15 @@
 </div>
 
 <div class="container mt-5">
-    <div class="row">
+    <div class="row" id="productContainer">
         {% for producto in productos %}
         <div class="col-md-4">
-            <div class="card mb-4 shadow-sm">
+            <div class="card mb-4 shadow-sm product-card" data-name="{{ producto.nombre }}" data-price="{{ producto.precio_normal }}" data-img="{{ producto.imagen.url }}">
                 <img src="{{ producto.imagen.url }}" class="card-img-top" alt="{{ producto.nombre }}">
                 <div class="card-body">
                     <h5 class="card-title">{{ producto.nombre }}</h5>
                     <p class="card-text"><del>${{ producto.precio_normal }}</del></p>
-                    <p class="card-text">${{ producto.precio_con_descuento }}</p>
+                    <p class="card-text precio">${{ producto.precio_con_descuento }}</p>
                 </div>
             </div>
         </div>
@@ -110,7 +110,9 @@
     </div>
 </div>
 
+
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-<script src="{% static 'funciones.js' %}"></script>
+<script src="{% static 'js/funciones.js' %}"></script>
 </body>
 </html>
