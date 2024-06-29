@@ -30,6 +30,19 @@ def usuarios_list(request):
     return render(request, 'tienda/usuarios_list.html', {'clientes': clientes})
 
 def eliminarUsuario(request, pk):
+    try:
+        cliente = Cliente.objects.get(username=pk)
+        cliente.delete()
+        mensaje = "Cliente eliminado"
+    except Cliente.DoesNotExist:
+        mensaje = "Cliente no encontrado"
+    
+    clientes = Cliente.objects.all()
+    context = {'clientes': clientes, 'mensaje': mensaje}
+    return redirect('usuarios_list')
+
+
+#def eliminarUsuario(request, pk):
     context={}
     try:
         cliente=Cliente.objects.get(username=pk)
