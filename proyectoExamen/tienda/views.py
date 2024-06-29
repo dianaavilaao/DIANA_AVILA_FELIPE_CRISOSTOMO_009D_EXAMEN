@@ -41,19 +41,32 @@ def eliminarUsuario(request, pk):
     context = {'clientes': clientes, 'mensaje': mensaje}
     return redirect('usuarios_list')
 
-
-#def eliminarUsuario(request, pk):
-    context={}
-    try:
+def modificarUsuario(request, pk):
+    if pk != " ":
         cliente=Cliente.objects.get(username=pk)
 
-        cliente.delete()
-        mensaje="Cliente eliminado"
-        clientes=Cliente.objects.all()
-        context={'alumnos' : clientes, 'mensaje':mensaje}
-        return render(request, 'tienda/usuarios_list.html',context)
-    except:
-        mensaje="Cliente no encontrado"
-        clientes=Cliente.objects.all()
-        context={'alumnos' : clientes, 'mensaje':mensaje}
-        return render(request, 'tienda/usuarios_list.html',context)
+        context={'cliente':cliente}
+        if cliente:
+            return render(request, 'tienda/modificarUsuario.html', context)
+        else:
+            context={'mensaje':"Error, usuario no encontrado"}
+            return render(request, 'tienda/modificarUsuario.html', context)
+
+def actualizarUsuario(request):
+    if request.method == "post":
+        username=request.POST["username"]
+        email=request.POST["email"]
+        password=request.POST["password"]
+
+        cliente = Cliente()
+        cliente.username = username
+        cliente.email = email
+        cliente.password = password
+        cliente.save()
+
+        context={'mensaje':"Datos actualizados", 'cliente':cliente}
+        return render(request, 'tienda/modificarUsuario.html', context)
+    else:
+        clientes = Cliente.objects.all()
+        context={'clientes':clientes}
+        return render(request, 'tienda/usuarios_list.html', context)
