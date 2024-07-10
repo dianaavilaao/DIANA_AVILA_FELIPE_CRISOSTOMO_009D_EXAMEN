@@ -9,5 +9,6 @@ urlpatterns = [
     path('usuarios_list', views.usuarios_list, name='usuarios_list'),
     path('eliminarUsuario/<str:pk>', views.eliminarUsuario, name='eliminarUsuario'),
     path('modificarUsuario/<str:pk>', views.modificarUsuario, name='modificarUsuario'),
-    path('actualizarUsuario', views.actualizarUsuario, name="actualizarUsuario")
+    path('actualizarUsuario', views.actualizarUsuario, name="actualizarUsuario"),
+    path('agregarProducto', views.agregarProducto, name='agregarProducto')
 ]

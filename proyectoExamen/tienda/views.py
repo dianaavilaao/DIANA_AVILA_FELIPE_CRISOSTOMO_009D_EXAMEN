@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Producto, Cliente
-from .forms import RegistroForm
+from .forms import RegistroForm, ProductoForm
 
 def producto_list(request):
     productos = Producto.objects.all()
@@ -20,7 +20,7 @@ def registro(request):
         form = RegistroForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('/tienda/usuarios_list')  # Cambia esto a donde quieras redirigir después del registro
+            return redirect('/tienda/usuarios_list')  
     else:
         form = RegistroForm()
     return render(request, 'tienda/registro.html', {'form': form})
@@ -41,32 +41,35 @@ def eliminarUsuario(request, pk):
     context = {'clientes': clientes, 'mensaje': mensaje}
     return redirect('usuarios_list')
 
+
 def modificarUsuario(request, pk):
-    if pk != " ":
-        cliente=Cliente.objects.get(username=pk)
-
-        context={'cliente':cliente}
-        if cliente:
-            return render(request, 'tienda/modificarUsuario.html', context)
-        else:
-            context={'mensaje':"Error, usuario no encontrado"}
-            return render(request, 'tienda/modificarUsuario.html', context)
-
-def actualizarUsuario(request):
-    if request.method == "post":
-        username=request.POST["username"]
-        email=request.POST["email"]
-        password=request.POST["password"]
-
-        cliente = Cliente()
-        cliente.username = username
-        cliente.email = email
-        cliente.password = password
-        cliente.save()
-
-        context={'mensaje':"Datos actualizados", 'cliente':cliente}
-        return render(request, 'tienda/modificarUsuario.html', context)
+    cliente = get_object_or_404(Cliente, username=pk)
+    if request.method == 'POST':
+        form = RegistroForm(request.POST, instance=cliente)
+        if form.is_valid():
+            form.save()
+            return redirect('usuarios_list')
     else:
-        clientes = Cliente.objects.all()
-        context={'clientes':clientes}
-        return render(request, 'tienda/usuarios_list.html', context)
+        form = RegistroForm(instance=cliente)
+    return render(request, 'tienda/modificarUsuario.html', {'form': form, 'cliente': cliente})
+
+def actualizarUsuario(request, pk):
+    cliente = get_object_or_404(Cliente, pk=pk)
+    if request.method == 'POST':
+        form = RegistroForm(request.POST, instance=cliente)
+        if form.is_valid():
+            form.save()
+            return redirect('usuarios_list')
+    else:
+        form = RegistroForm(instance=cliente)
+    return render(request, 'tienda/modificarUsuario.html', {'form': form})
+
+def agregarProducto(request):
+    if request.method == 'POST':
+        form = ProductoForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('agregarProducto')
+    else:
+        form = ProductoForm()
+    return render(request, 'tienda/agregarProducto.html', {'form': form})
